@@ -95,7 +95,9 @@ export const CloudModal: React.FC<ModalProps> = ({ opened, onClose }) => {
   const [currentFile, setCurrentFile] = React.useState<File | null>(null);
   const { isReady, query, replace } = useRouter();
 
-  const { data, isLoading, refetch } = useQuery(["allJson", query], () => documentSvc.getAll(), {
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["allJson", query],
+    queryFn: () => documentSvc.getAll(),
     enabled: isReady && opened,
   });
 
